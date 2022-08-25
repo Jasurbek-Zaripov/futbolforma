@@ -1,0 +1,12 @@
+{
+    "locales": [
+        "uz",
+        "ru"
+    ],
+    "defaultLocale": "ru",
+    "pages": {
+        "*": [
+            "lang"
+        ]
+    }
+}
