@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Club {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  logo      String
+  uniforms  Uniform[]
+  createdAt DateTime
+}
+
+model Uniform {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  key       String   @unique
+  images    Img[]
+  title     String
+  made      String
+  price     Int
+  for       For
+  createdAt DateTime
+  club      Club     @relation(fields: [clubId], references: [id])
+  clubId    String
+  Sold      Sold[]
+}
+
+model Img {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  uniform   Uniform @relation(fields: [uniformId], references: [id])
+  uniformId String
+}
+
+model Sold {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  count         Int
+  orderid       String
+  wrote         Boolean  @default(false)
+  deliveryPlace String
+  deliveryPrice Int
+  totalPrice    Int
+  createdAt     DateTime
+  uniform       Uniform  @relation(fields: [uniformId], references: [id])
+  uniformId     String
+}
+
+enum For {
+  child
+  man
+}
