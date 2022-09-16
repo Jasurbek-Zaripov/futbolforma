@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.swiper-free-mode>.swiper-wrapper {
+    transition-timing-function: linear !important;
+}
