@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
-      green: {
+      mygreen: {
         10: '#E9F6F4',
         20: '#D3ECE8',
         40: '#A8D9D2',
@@ -16,7 +16,7 @@ module.exports = {
         80: '#51B4A5',
         100: '#25A18E',
       },
-      black: {
+      myblack: {
         10: '#E7E7E7',
         20: '#D0D0D0',
         40: '#A0A0A0',

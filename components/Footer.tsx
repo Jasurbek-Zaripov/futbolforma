@@ -8,47 +8,36 @@ import Facebook from '../public/icons/facebook.png';
 
 export default function Footer() {
     return (
-        <footer className=" h-full mt-5 flex items-center justify-around py-5">
-            <div className="flex flex-col justify-center items-center p-2 px-10">
-                <div className="flex items-center">
-                    <div className="relative h-10 w-10 mr-1"><Image url={Logo} className={'rounded-full'} /></div>
-                    <h1 className="text-3xl items-center hidden lg:flex">FutbolForma</h1>
+        <footer className="mt-40 w-full h-full bg-[#f8f6f6]">
+            <div className="h-full w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 pt-20 pb-12">
+                <div className="flex flex-col justify-center items-center p-2 px-10">
+                    <div className="flex items-center">
+                        <div className="relative h-10 w-10 mr-1"><Image url={Logo} className={'rounded-full'} /></div>
+                        <h1 className="text-3xl items-center flex font-bold">FutbolForma</h1>
+                    </div>
+                    <div className="flex items-center justify-around w-full mt-3">
+                        {
+                            [Instagram, Telegram, Youtube, Facebook].map(item => <div key={item.src} className="relative min-h-[32px] min-w-[32px]"><Image url={item} /></div>)
+                        }
+                    </div>
                 </div>
-                <p className="text-black-100 mx-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, nobis.</p>
-                <div className="flex items-center justify-around w-full">
-                    {
-                        [Instagram, Telegram, Youtube, Facebook].map(item => <div key={item.src} className="relative min-h-[32px] min-w-[32px]"><Image url={item} /></div>)
-                    }
+                <div className="flex flex-col items-center justify-center">
+                    <h2>Contact</h2>
+                    <p>Lorem, ipsum dolor.</p>
+                    <p>Lorem, ipsum dolor.</p>
+                    <p>Lorem, ipsum dolor.</p>
+                    <p>Lorem, ipsum dolor.</p>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                    <h2>We accept payment</h2>
+                    <p>Lorem, ipsum dolor.</p>
+                    <p>Lorem, ipsum dolor.</p>
+                    <p>Lorem, ipsum dolor.</p>
+                    <p>Lorem, ipsum dolor.</p>
                 </div>
             </div>
-            <div className="flex flex-col items-center justify-center">
-                <h2>Product</h2>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-                <h2>About</h2>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-                <h2>Contact</h2>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-                <h2>We accept payment</h2>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-            </div>
+            <hr className="bg-white py-[0.0625rem]" />
+            <div className="py-8"></div>
         </footer>
     );
 }

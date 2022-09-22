@@ -14,29 +14,36 @@ export default function Carusel({ images }: { images: StaticImageData[]; }) {
             <Swiper
                 centeredSlides={true}
                 slidesPerView={1}
+                breakpoints={{
+                    200: { slidesPerView: 1 },
+                    640: { slidesPerView: 1 },
+                    768: { slidesPerView: 1 },
+                    1024: { slidesPerView: 1 },
+                    1280: { slidesPerView: 1 },
+                    1536: { slidesPerView: 1 }
+                }}
                 longSwipesMs={0}
                 loopPreventsSlide={false}
                 longSwipes={true}
                 longSwipesRatio={0}
                 threshold={0}
                 slideToClickedSlide={true}
-                speed={80000}
+                speed={1000}
                 loop={true}
-                spaceBetween={32}
-                grabCursor={true}
+                spaceBetween={10}
                 modules={[Autoplay, FreeMode]}
                 freeMode={true}
-                autoplay={{ delay: 0, disableOnInteraction: false }}
-                className='w-full'
+                autoplay={{ delay: 2500, disableOnInteraction: false, reverseDirection: true }}
+                className='w-full h-[40rem]'
             >
                 {
                     images.map((img, idx) => (
                         <SwiperSlide key={idx}>
-                            <div className='z-0 relative top-0 left-0 h-[40rem] overflow-hidden rounded-md'>
+                            <div className='z-0 relative top-0 left-0 h-full overflow-hidden rounded'>
                                 <Image url={img} />
-                                <div className="z-10 w-2/5">
-                                    <h3>2022-2023 yilgi yangi mavsum futbol formalarini o'zbekiston bo'ylab yetkazib beramiz</h3>
-                                    <p className="text-black-60">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, commodi.</p>
+                                <div className="z-10 w-2/5 absolute top-0 left-10 pt-[10%]">
+                                    <h3 className="text-white font-bold text-4xl">2022-2023 yilgi yangi mavsum futbol formalarini o'zbekiston bo'ylab yetkazib beramiz</h3>
+                                    <p className="text-white opacity-60 mt-6 mb-14">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, commodi.</p>
                                     <Button text="Подробнее ->" />
                                 </div>
                             </div>
