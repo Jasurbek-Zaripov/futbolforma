@@ -6,6 +6,7 @@ declare global {
             ENTPOINT: string;
             X_AUTH: string;
             NEXT_PUBLIC_API: string;
+            NEXT_PUBLIC_API_SHOP: string;
         }
     }
 }

@@ -35,6 +35,22 @@ export default function uniform({ id, locale }: any) {
     const { t } = useTranslate();
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     const [show, setShow] = useState('0');
+    const body: any = {
+        data: {
+            formaCode: id
+        }
+    };
+
+    const sendOrder = async () => {
+        body.id = localStorage.getItem('orderId');
+        let result: any = await fetch(process.env.NEXT_PUBLIC_API_SHOP, {
+            method: 'post',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        result.ok && (result = await result.json());
+        if (window?.localStorage) body.id = localStorage.setItem('orderId', result?.orderId);
+    };
 
     return (
         <div>
@@ -137,7 +153,7 @@ export default function uniform({ id, locale }: any) {
                                     ['S', 'M', 'L', 'XL', '2XL'].map((size, id) =>
 
                                         <label key={size + '' + id} className="items-center  ml-7 grid grid-cols-[1em_auto] gap-2">
-                                            <input type="radio" name="size" value={size} className={`
+                                            <input type="radio" onChange={(event) => { body.data.size = event.target.value; }} name="size" value={size} className={`
                                             appearance-none 
                                             grid place-content-center
                                             bg-white 
@@ -157,16 +173,16 @@ export default function uniform({ id, locale }: any) {
                         </div>
                         <p className="pb-4">Formaga yoqtirgan raqamingiz bilan ism (familiya) yozib berishimizni istasangiz, ma‘lumotlarni kiriting (+50.000 UZS)</p>
                         <div className="mb-6 flex items-center justify-start">
-                            <input type="text" className="rounded-l-lg border border-mygreen-40 border-r-0 focus:border-r text-mygreen-100 placeholder:text-mygreen-40 p-2 w-full outline-none focus:border-mygreen-100" placeholder="Forma uchun matn" />
-                            <input type="number" className="rounded-r-lg border border-mygreen-40 text-mygreen-100 placeholder:text-mygreen-40 p-2 w-full outline-none focus:border-mygreen-100" placeholder="Forma uchun raqam" />
+                            <input onKeyUp={(event) => { body.data.text = event.currentTarget.value; }} type="text" className="rounded-l-lg border border-mygreen-40 border-r-0 focus:border-r text-mygreen-100 placeholder:text-mygreen-40 p-2 w-full outline-none focus:border-mygreen-100" placeholder="Forma uchun matn" />
+                            <input onKeyUp={(event) => { body.data.number = event.currentTarget.value; }} type="number" className="rounded-r-lg border border-mygreen-40 text-mygreen-100 placeholder:text-mygreen-40 p-2 w-full outline-none focus:border-mygreen-100" placeholder="Forma uchun raqam" />
                         </div>
                         <div className="flex items-center justify-start">
                             <Button text={'Купить'} classname={'mr-8 !shadow-none hover:!shadow-none'} />
-                            <Button text={'Добавить в корзинку'} classname={`
+                            <span onClick={sendOrder}><Button text={'Добавить в корзинку'} classname={`
                             !shadow-none hover:!shadow-none
                             !bg-white hover:!bg-white
                             !text-mygreen-100 hover:!text-mygreen-60
-                            border border-mygreen-100 hover:!border-mygreen-60`} />
+                            border border-mygreen-100 hover:!border-mygreen-60`} /></span>
                         </div>
                     </div>
                 </div>

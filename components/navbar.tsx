@@ -4,10 +4,17 @@ import Image from "./Image";
 import Logo from '../public/logo.png';
 import Shopping from '../public/icons/ShoppingCart.png';
 import useT from 'next-translate/useTranslation';
+import { useEffect, useState } from "react";
 
 export default function Navbar({ currentLang }: { currentLang: string; }) {
     const router = useRouter();
     const { t } = useT();
+    const [orderId, setOrderId] = useState('');
+
+    useEffect(() => {
+        setOrderId(localStorage.getItem('orderId') + '');
+    });
+
     return (
         <header className="w-full h-28 sticky top-0 left-0 right-0 flex items-center justify-around mb-12 shadow-sm sm:shadow bg-white z-20 px-[9.5vw]">
             <div className="flex items-center w-1/5">
@@ -34,8 +41,9 @@ export default function Navbar({ currentLang }: { currentLang: string; }) {
                         <a className="hidden sm:inline shadow-sm p-1 rounded px-2">{local}</a>
                     </NextLink>
                 )}
-
-                <div className="relative h-6 w-6 mr-5 sm:mr-0"><Image url={Shopping} /></div>
+                <NextLink href={{ pathname: '/shop', query: { orderId } }} locale={currentLang} >
+                    <a><div className="relative h-6 w-6 mr-5 sm:mr-0"><Image url={Shopping} /></div></a>
+                </NextLink>
             </div>
         </header>
     );
