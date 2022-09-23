@@ -1,4 +1,10 @@
-export default function Button({ text, classname = '', disable }: { text: any; classname?: string; disable?: boolean; }) {
+interface IButton {
+    text: any;
+    classname?: string;
+    disable?: boolean;
+}
+
+export default function Button({ text, classname = '', disable }: IButton) {
 
     return (
         <>
