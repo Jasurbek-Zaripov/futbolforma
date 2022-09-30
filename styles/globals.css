@@ -5,13 +5,11 @@
 
 * {
     font-family: 'Inter', sans-serif !important;
+    @apply text-xl;
+    @apply text-myblack-80
 }
 .swiper-free-mode>.swiper-wrapper {
     transition-timing-function: linear !important;
-}
-body {
-    @apply text-xl;
-    @apply text-myblack-80
 }
 .true {
     @apply text-mygreen-100

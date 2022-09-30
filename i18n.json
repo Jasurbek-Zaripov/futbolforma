@@ -3,7 +3,7 @@
         "uz",
         "ru"
     ],
-    "defaultLocale": "uz",
+    "defaultLocale": "ru",
     "pages": {
         "*": [
             "lang"

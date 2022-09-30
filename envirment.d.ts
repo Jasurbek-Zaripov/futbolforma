@@ -7,6 +7,8 @@ declare global {
             X_AUTH: string;
             NEXT_PUBLIC_API: string;
             NEXT_PUBLIC_API_SHOP: string;
+            VERCEL_URL: string;
+            NEXT_PUBLIC_VERCEL_URL: string;
         }
     }
 }

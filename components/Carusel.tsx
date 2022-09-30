@@ -34,18 +34,17 @@ export default function Carusel({ images }: { images: StaticImageData[]; }) {
                 modules={[Autoplay, FreeMode]}
                 freeMode={true}
                 autoplay={{ delay: 2500, disableOnInteraction: false, reverseDirection: true }}
-                className='w-full h-[40rem]'
+                className='w-full h-[40rem] rounded-lg relative top-0 left-0 right-0'
             >
+                <div className="z-10 w-2/5 absolute top-0 left-10 pt-[10%]">
+                    <h3 className="text-white font-bold text-4xl mb-3">2022-2023 yilgi yangi mavsum futbol formalarini o'zbekiston bo'ylab yetkazib beramiz</h3>
+                    <Button text="Подробнее >" />
+                </div>
                 {
                     images.map((img, idx) => (
                         <SwiperSlide key={idx}>
                             <div className='z-0 relative top-0 left-0 h-full overflow-hidden rounded'>
                                 <Image url={img} />
-                                <div className="z-10 w-2/5 absolute top-0 left-10 pt-[10%]">
-                                    <h3 className="text-white font-bold text-4xl">2022-2023 yilgi yangi mavsum futbol formalarini o'zbekiston bo'ylab yetkazib beramiz</h3>
-                                    <p className="text-white opacity-60 mt-6 mb-14">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit, commodi.</p>
-                                    <Button text="Подробнее ->" />
-                                </div>
                             </div>
                         </SwiperSlide>
                     ))

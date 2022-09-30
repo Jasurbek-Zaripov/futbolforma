@@ -4,8 +4,7 @@ export function getStaticProps({ locale }: any) { //send props to Payme
     return {
         props: {
             locale,
-        },
-        revalidate: 60
+        }
     };
 }
 

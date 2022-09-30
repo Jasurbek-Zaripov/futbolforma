@@ -7,5 +7,6 @@ export default ({ url, className = '' }: { url: StaticImageData; className?: str
         placeholder="blur"
         className={className}
         blurDataURL={url.blurDataURL}
+        alt={url.src.split('/').slice(-1)[0]}
     />
 );

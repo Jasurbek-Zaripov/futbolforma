@@ -9,7 +9,7 @@ import { FreeMode, Thumbs } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../../components/Button";
 
 export async function getStaticPaths() {
@@ -22,12 +22,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { id }, locale }: any) {
-    const props: any = { id };
-    props.locale = locale;
+    const props = { id, locale };
 
     return {
-        props,
-        revalidate: 60,
+        props
     };
 }
 
@@ -35,21 +33,33 @@ export default function uniform({ id, locale }: any) {
     const { t } = useTranslate();
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     const [show, setShow] = useState('0');
-    const body: any = {
-        data: {
-            formaCode: id
-        }
-    };
 
-    const sendOrder = async () => {
-        body.id = localStorage.getItem('orderId');
-        let result: any = await fetch(process.env.NEXT_PUBLIC_API_SHOP, {
-            method: 'post',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-        result.ok && (result = await result.json());
-        if (window?.localStorage) body.id = localStorage.setItem('orderId', result?.orderId);
+    const textRef = useRef<any>(null);
+    const numberRef = useRef<any>(null);
+    const [sizeRef, setsizeRef] = useState('S');
+    const sendOrder = () => {
+        const card = {
+            formaCode: id,
+            number: numberRef.current.value,
+            text: textRef.current.value,
+            size: sizeRef,
+            count: 1
+        };
+        const threeDay = 3 * 24 * 60 * 60 * 1000;
+        const $cookies = [
+            'cards=',
+            'expires=' + (new Date(Date.now() + threeDay).toUTCString())
+        ];
+
+        if (document.cookie) {
+            const [, val] = document.cookie.split(';')[0].split('=');
+            const cards = JSON.parse(val);
+            cards.push(card);
+            $cookies[0] += JSON.stringify(cards);
+
+        } else { $cookies[0] += JSON.stringify([card]); }
+        document.cookie = $cookies.join(';');
+
     };
 
     return (
@@ -147,13 +157,13 @@ export default function uniform({ id, locale }: any) {
                         <h1 className="font-semibold text-2xl pb-5">ADICOLOR ESSENTIALS</h1>
                         <p className="text-mygreen-100 pb-5"><span className="font-semibold text-2xl">350 000</span> uzs</p>
                         <p className="pb-5">Страна производства: USE</p>
-                        <div className="pb-5 flex flex-col 2xl:flex-row 2xl:items-center w-full"><span>Выберите размеры</span>
+                        <div className="pb-5 flex flex-col 2xl:flex-row 2xl:items-center w-full"><p className="whitespace-nowrap">Выберите размеры:</p>
                             <div className="flex items-center justify-start flex-grow-[2]">
                                 {
                                     ['S', 'M', 'L', 'XL', '2XL'].map((size, id) =>
 
                                         <label key={size + '' + id} className="items-center  ml-7 grid grid-cols-[1em_auto] gap-2">
-                                            <input type="radio" onChange={(event) => { body.data.size = event.target.value; }} name="size" value={size} className={`
+                                            <input type="radio" onChange={event => setsizeRef(event.target.value)} name="size" value={size} checked={size == sizeRef} className={`
                                             appearance-none 
                                             grid place-content-center
                                             bg-white 
@@ -173,8 +183,8 @@ export default function uniform({ id, locale }: any) {
                         </div>
                         <p className="pb-4">Formaga yoqtirgan raqamingiz bilan ism (familiya) yozib berishimizni istasangiz, ma‘lumotlarni kiriting (+50.000 UZS)</p>
                         <div className="mb-6 flex items-center justify-start">
-                            <input onKeyUp={(event) => { body.data.text = event.currentTarget.value; }} type="text" className="rounded-l-lg border border-mygreen-40 border-r-0 focus:border-r text-mygreen-100 placeholder:text-mygreen-40 p-2 w-full outline-none focus:border-mygreen-100" placeholder="Forma uchun matn" />
-                            <input onKeyUp={(event) => { body.data.number = event.currentTarget.value; }} type="number" className="rounded-r-lg border border-mygreen-40 text-mygreen-100 placeholder:text-mygreen-40 p-2 w-full outline-none focus:border-mygreen-100" placeholder="Forma uchun raqam" />
+                            <input ref={textRef} type="text" className="rounded-l-lg border border-mygreen-40 border-r-0 focus:border-r text-mygreen-100 placeholder:text-mygreen-40 w-full p-2 outline-none focus:border-mygreen-100" placeholder="Forma uchun matn" />
+                            <input ref={numberRef} type="number" className="rounded-r-lg border border-mygreen-40 text-mygreen-100 placeholder:text-mygreen-40 p-2 w-1/3 outline-none focus:border-mygreen-100" placeholder="raqam" />
                         </div>
                         <div className="flex items-center justify-start">
                             <Button text={'Купить'} classname={'mr-8 !shadow-none hover:!shadow-none'} />

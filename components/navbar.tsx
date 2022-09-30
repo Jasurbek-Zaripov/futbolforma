@@ -4,19 +4,14 @@ import Image from "./Image";
 import Logo from '../public/logo.png';
 import Shopping from '../public/icons/ShoppingCart.png';
 import useT from 'next-translate/useTranslation';
-import { useEffect, useState } from "react";
 
 export default function Navbar({ currentLang }: { currentLang: string; }) {
     const router = useRouter();
     const { t } = useT();
-    const [orderId, setOrderId] = useState('');
 
-    useEffect(() => {
-        setOrderId(localStorage.getItem('orderId') + '');
-    });
 
     return (
-        <header className="w-full h-28 sticky top-0 left-0 right-0 flex items-center justify-around mb-12 shadow-sm sm:shadow bg-white z-20 px-[9.5vw]">
+        <header className="w-full sticky top-0 left-0 right-0 flex items-center justify-around mb-12 shadow-sm sm:shadow bg-white z-20 px-[9.5vw] py-5">
             <div className="flex items-center w-1/5">
                 <div className="relative h-10 w-10 mr-1"><Image url={Logo} className={'rounded-full'} /></div>
                 <h1 className="text-3xl items-center hidden lg:flex font-bold">FutbolForma</h1>
@@ -35,14 +30,14 @@ export default function Navbar({ currentLang }: { currentLang: string; }) {
                     <NextLink href='tel:+998 91 590 55 61' locale={currentLang}>{t('lang:contact')}</NextLink>
                 </li>
             </ul>
-            <div className="flex items-center justify-end  w-1/2 sm:w-1/5">
+            <div className="flex justify-end  w-1/2 sm:w-1/5">
                 {router.locales?.map(local => currentLang == local ||
                     <NextLink href={router.asPath} locale={local} key={local}>
-                        <a className="hidden sm:inline shadow-sm p-1 rounded px-2">{local}</a>
+                        <a className="rounded hidden sm:inline transition-shadow shadow hover:shadow-md p-1 px-2">{local}</a>
                     </NextLink>
                 )}
-                <NextLink href={{ pathname: '/shop', query: { orderId } }} locale={currentLang} >
-                    <a><div className="relative h-6 w-6 mr-5 sm:mr-0"><Image url={Shopping} /></div></a>
+                <NextLink href={'/shop'} locale={currentLang} >
+                    <a className="rounded ml-2 transition-shadow shadow hover:shadow-md p-1"><div className="relative h-6 w-6 mr-5 sm:mr-0"><Image url={Shopping} /></div></a>
                 </NextLink>
             </div>
         </header>

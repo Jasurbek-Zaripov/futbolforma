@@ -23,7 +23,7 @@ export default function Card({ img, text, price, btnText, classname = '', formId
             <div className="w-full px-4 h-full pb-6 flex flex-col items-center justify-between">
                 <p className="text-myblack-100 text-lg mt-4 w-full font-semibold">{text}</p>
                 <p className="text-[#F82710] mt-3  w-full font-bold text-2xl">{addSpace(price)} uzs</p>
-                <NextLink href={'/uniform/' + formId}>
+                <NextLink href={{ pathname: '/uniform/[id]', query: { id: formId } }}>
                     <a><Button classname="mt-6 w-full" text={btnText} /></a>
                 </NextLink>
             </div>

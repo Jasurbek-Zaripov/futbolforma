@@ -6,38 +6,48 @@ import girl from '../public/Anime Girl Cars 4K Wallpaper 69.jpg';
 import sun from '../public/Чёрное солнце __КрипиПаста.jpg';
 import Club from '../components/Club';
 import Footer from '../components/Footer';
-import Card from '../components/Card';
-
+import Header from '../components/Head';
+import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 
 export function getStaticProps({ locale }: any) { //send props to Home
   return {
     props: {
       locale,
-    },
-    revalidate: 60
+    }
   };
 }
 
 const Home: NextPage = ({ locale }: any) => {
+  const { t } = useTranslation();
+  const router = useRouter();
 
   return (
-    <div>
-      <Navbar currentLang={locale} />
+    <div className='overflow-x-hidden'>
+      <Header title={t('lang:home')} desc={t('lang:homeDesc')} url={router.route} imgUrl={cat.src} keyword={'forma, futbol, futbol forma'} key={'Header'} />
+      <Navbar currentLang={locale} key={'Navbar'} />
 
-      <Carusel images={[cat, girl, sun]} />
-
-      <h2 className=' text-myblack-100 text-4xl font-medium mt-20 mb-12 pl-64'>Выберите свою любимую команду</h2>
-      <Club images={[cat, girl, sun]} />
-
-      <h2 className='font-medium text-4xl text-myblack-100 mt-20 mb-12 pl-64'>Cards </h2>
-      <div className='w-10/12 flex items-center justify-center mx-auto'>
-        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7 w-10/12">
+      <div className='px-9'>
+        <Carusel images={[cat, girl, sun]} key={'Carusel'} />
+        <div className='mt-5 w-[120%] -ml-[10%]'><Club images={[cat, girl, sun]} key={'Club'} /></div>
+        <div className='px-5 mt-40 grid  grid-cols-1 2xl:grid-cols-2 gap-5'>
           {
-            [1, 1, 1, 1, 1, 1, 1, 1].map((item, idx) => <Card formId='1' classname='mx-auto' btnText='Посмотреть' key={idx} img={cat} price={15000000} text={'Мужская спортивная футболка'} />)
+            [
+              `Komandangiz orqali yoki "Forma" bo'limi orqali formangizni tanlang`,
+              `Hohishga qarab forma orqasiga Ism va raqam yozdiring`,
+              `Undan so'ng korzinkaga solib tanlashda davom eting yoki shu yerda sotib oling!`,
+              `Biz forma tayyor bo'lganida siz bilan bog'lanamiz!`
+            ].map((text, idx) =>
+              <div className='border border-mygreen-100 p-6 rounded-lg h-full' key={idx}>
+                <p className='font-semibold text-mygreen-100'>Etap {idx + 1}</p>
+                <p>{text}</p>
+              </div>
+
+            )
           }
         </div>
       </div>
-      <Footer />
+      <Footer key={'Footer'} />
     </div>
   );
 };

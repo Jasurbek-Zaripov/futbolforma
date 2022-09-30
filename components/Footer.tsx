@@ -8,36 +8,26 @@ import Facebook from '../public/icons/facebook.png';
 
 export default function Footer() {
     return (
-        <footer className="mt-40 w-full h-full bg-[#f8f6f6]">
-            <div className="h-full w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 pt-20 pb-12">
+        <footer className="mt-40 w-full h-full bg-[#f8f6f6] text-center">
+            <div className="h-full w-1/2 mx-auto">
                 <div className="flex flex-col justify-center items-center p-2 px-10">
                     <div className="flex items-center">
                         <div className="relative h-10 w-10 mr-1"><Image url={Logo} className={'rounded-full'} /></div>
                         <h1 className="text-3xl items-center flex font-bold">FutbolForma</h1>
                     </div>
-                    <div className="flex items-center justify-around w-full mt-3">
+                    <p className="mt-3">FUTBOL FORMA - Tailand davlatida ishlab chiqarilgan futbol formalarini O'zbekiston bo'ylab yetkazib beruvchi onlayn do'kon</p>
+                    <p className="mt-3">Guvohnoma №1709136</p>
+                    <div className="flex items-center mt-3">
                         {
-                            [Instagram, Telegram, Youtube, Facebook].map(item => <div key={item.src} className="relative min-h-[32px] min-w-[32px]"><Image url={item} /></div>)
+                            [Instagram, Telegram, Youtube, Facebook].map(item =>
+                                <div key={item.src} className="relative min-h-[32px] min-w-[32px] ml-2"><Image url={item} /></div>
+                            )
                         }
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center">
-                    <h2>Contact</h2>
-                    <p>Lorem, ipsum dolor.</p>
-                    <p>Lorem, ipsum dolor.</p>
-                    <p>Lorem, ipsum dolor.</p>
-                    <p>Lorem, ipsum dolor.</p>
-                </div>
-                <div className="flex flex-col items-center justify-center">
-                    <h2>We accept payment</h2>
-                    <p>Lorem, ipsum dolor.</p>
-                    <p>Lorem, ipsum dolor.</p>
-                    <p>Lorem, ipsum dolor.</p>
-                    <p>Lorem, ipsum dolor.</p>
-                </div>
             </div>
             <hr className="bg-white py-[0.0625rem]" />
-            <div className="py-8"></div>
+            <div className="py-2 2xl:py-4">{new Date().toLocaleDateString().split('.').join(' ')}</div>
         </footer>
     );
 }

@@ -6,6 +6,8 @@ import Footer from "../../components/Footer";
 import { getIds, getProp } from "../../service/test";
 import Button from "../../components/Button";
 import NextLink from 'next/link';
+import Header from "../../components/Head";
+import { useRouter } from "next/router";
 
 export async function getStaticPaths() {
     const paths = getIds();
@@ -21,17 +23,18 @@ export async function getStaticProps({ params: { id }, locale }: any) {
     props.locale = locale;
 
     return {
-        props,
-        revalidate: 60,
+        props
     };
 }
 
 export default function page({ id, locale }: any) {
     const { t } = useTranslate();
+    const router = useRouter();
     const { start, end } = { start: id == '1', end: id == '3' };
 
     return (
         <div>
+            <Header desc="pagination page" keyword="futbol, futbol forma, forma" title={'page-' + id} imgUrl={cat.src} url={router.asPath} />
             <Navbar currentLang={locale} />
             <div className="px-[14vw]">
                 <div className="flex items-center justify-start mb-12">
