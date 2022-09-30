@@ -1,4 +1,3 @@
-import Navbar from "../../components/Navbar";
 import useTranslate from 'next-translate/useTranslation';
 import cat from '../../public/cat.png';
 import Footer from "../../components/Footer";
@@ -11,6 +10,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
 import { useRef, useState } from "react";
 import Button from "../../components/Button";
+import Navbar from '../../components/navbar';
 
 export async function getStaticPaths() {
     const paths = [{ params: { id: '1' } }];
@@ -33,6 +33,12 @@ export default function uniform({ id, locale }: any) {
     const { t } = useTranslate();
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     const [show, setShow] = useState('0');
+    const body: any = {
+        data: {
+            formaCode: id
+        }
+    };
+
 
     const textRef = useRef<any>(null);
     const numberRef = useRef<any>(null);

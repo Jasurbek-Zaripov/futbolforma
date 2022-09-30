@@ -9,7 +9,6 @@ export default function Navbar({ currentLang }: { currentLang: string; }) {
     const router = useRouter();
     const { t } = useT();
 
-
     return (
         <header className="w-full sticky top-0 left-0 right-0 flex items-center justify-around mb-12 shadow-sm sm:shadow bg-white z-20 px-[9.5vw] py-5">
             <div className="flex items-center w-1/5">
